@@ -238,7 +238,10 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
     fig.suptitle(f'Options Analysis — {option_type.capitalize()}  '
                  f'S={S}, K={K}, T={T}yr, r={r}, σ={sigma}', fontsize=13)
 
-    # --- Chart 1: Price vs Spot ---
+#-------------------------------------------------------------------------------
+#Chart 1: Price vs Spot 
+#-------------------------------------------------------------------------------
+   
     spot_range = np.linspace(S * 0.5, S * 1.5, 200)
     prices     = [black_scholes(s, K, T, r, sigma, option_type) for s in spot_range]
     intrinsic  = [max(0, s - K) if option_type == 'call' else max(0, K - s) for s in spot_range]
@@ -252,8 +255,10 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
     ax.set_ylabel('Option price ($)')
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.3)
-
-    # --- Chart 2: Price vs Volatility ---
+    
+#-------------------------------------------------------------------------------
+# Chart 2: Price vs Volatility
+#-------------------------------------------------------------------------------
     vol_range = np.linspace(0.05, 0.8, 200)
     prices_v  = [black_scholes(S, K, T, r, v, option_type) for v in vol_range]
 
@@ -266,7 +271,10 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.3)
 
-    # --- Chart 3: Delta and Gamma vs Spot ---
+#-------------------------------------------------------------------------------
+# Chart 3: Delta and Gamma vs Spot 
+#-------------------------------------------------------------------------------
+    
     deltas = [greeks(s, K, T, r, sigma, option_type)['delta'] for s in spot_range]
     gammas = [greeks(s, K, T, r, sigma, option_type)['gamma'] for s in spot_range]
 
@@ -284,7 +292,10 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
     lines2, labels2 = ax2.get_legend_handles_labels()
     ax.legend(lines1 + lines2, labels1 + labels2, fontsize=9)
 
-    # --- Chart 4: Binomial convergence ---
+#-------------------------------------------------------------------------------
+#  Chart 4: Binomial convergence 
+#-------------------------------------------------------------------------------
+    
     step_sizes   = list(range(5, 205, 5))
     binom_prices = [binomial_tree(S, K, T, r, sigma, option_type, N=n) for n in step_sizes]
     bs_price     = black_scholes(S, K, T, r, sigma, option_type)
