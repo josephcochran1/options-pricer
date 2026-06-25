@@ -255,6 +255,11 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
     ax.set_ylabel('Option price ($)')
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.3)
+
+    # shows how the option price changes as the stock price moves
+    # the curved blue line is the B-S price, the dashed line is intrinsic value
+    # the gap between them is the time value — biggest at the money, shrinks away from it
+    # vertical dotted line shows where the stock currently is
     
 #-------------------------------------------------------------------------------
 # Chart 2: Price vs Volatility
@@ -270,7 +275,12 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
     ax.set_ylabel('Option price ($)')
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.3)
-
+    
+    # shows how the option price increases as volatility increases
+    # options always get more expensive with higher vol
+    # more volatility = more chance of a large move in your favour
+    # vertical dotted line shows current volatility
+    
 #-------------------------------------------------------------------------------
 # Chart 3: Delta and Gamma vs Spot 
 #-------------------------------------------------------------------------------
@@ -292,6 +302,12 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
     lines2, labels2 = ax2.get_legend_handles_labels()
     ax.legend(lines1 + lines2, labels1 + labels2, fontsize=9)
 
+    # delta is the S-shaped curve — goes from 0 (deep out of money) to 1 (deep in money)
+    # gamma peaks exactly at the money — that is where delta changes fastest
+    # high gamma means your hedge becomes inaccurate quickly and needs rebalancing
+    # two y axes used because delta and gamma are on different scales
+
+    
 #-------------------------------------------------------------------------------
 #  Chart 4: Binomial convergence 
 #-------------------------------------------------------------------------------
@@ -316,3 +332,8 @@ def plot_all(S, K, T, r, sigma, option_type='call'):
 
     print_summary(S=100, K=100, T=1, r=0.05, sigma=0.2, option_type='call')
 plot_all(S=100, K=100, T=1, r=0.05, sigma=0.2, option_type='call')
+
+    # shows the binomial price getting closer to Black-Scholes as N increases
+    # at low N the price oscillates — even and odd steps alternate above and below
+    # by N=100 it has essentially settled on the Black-Scholes price
+    # this chart confirms both models are correct
